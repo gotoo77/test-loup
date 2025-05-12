@@ -7,7 +7,7 @@ Ce projet mêle psychologie, esthétique tribale et fun, avec un visuel et un so
 
 ## 🚀 Aperçu
 
-👉 [Lien vers le test en ligne](https://tonpseudo.github.io/test-loup/) 
+👉 [Lien vers le test en ligne](https://gotoo77.github.io/test-loup/) 
 📸 Chaque profil a son image dédiée  
 🎧 Un son mystique est joué selon le résultat  
 📊 Un score détaillé est affiché avec des barres graphiques
