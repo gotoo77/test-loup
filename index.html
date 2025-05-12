@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quel loup sommeille en toi ?</title>
+  <link rel="icon" type="image/png" href="favicon.png">
   <style>
     body {
       margin: 0;
@@ -12,7 +13,7 @@
       background-size: cover;
       color: #f0f0f0;
     }
-    .overlay {
+     .overlay {
       background: rgba(0, 0, 0, 0.6);
       position: absolute;
       top: 0; left: 0;
@@ -45,6 +46,7 @@
       border-radius: 8px;
       cursor: pointer;
       transition: background 0.3s ease;
+      margin-top: 2rem;
     }
     .start-button:hover, .submit-button:hover {
       background: #6e3f2a;
@@ -65,6 +67,30 @@
     #quiz, #result {
       display: none;
     }
+    #progress {
+      font-size: 1rem;
+      margin-top: 1rem;
+      color: #ddd;
+    }
+    .bar-container {
+      margin-top: 1rem;
+      text-align: left;
+    }
+    .bar {
+      height: 24px;
+      background-color: #6e3f2a;
+      margin: 0.5rem 0;
+      color: white;
+      padding: 0 0.5rem;
+      line-height: 24px;
+      border-radius: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      white-space: nowrap;
+      font-size: 1rem;
+      gap: 0.5rem;
+    }
   </style>
 </head>
 <body>
@@ -77,8 +103,8 @@
     </p>
     <button class="start-button" onclick="startQuiz()">Commencer le test</button>
 
-    <form id="quiz">
-      <!-- Questions 1 à 7 + Bonus -->
+    <form id="quiz" oninput="checkCompletion()">
+      <!-- Toutes les questions -->
       <div class="question">
         <h3>1. Lors d’une prise de décision en groupe, tu es plutôt celui qui…</h3>
         <div class="answers">
@@ -167,12 +193,17 @@
         </div>
       </div>
 
-      <button type="button" class="submit-button" onclick="calculateResult()">Voir mon profil</button>
+ 
+     <p id="progress">Questions répondues : 0 / 8</p>
+
+      <button type="button" class="submit-button" onclick="calculateResult()" id="submitBtn" disabled>Voir mon profil</button>
     </form>
 
     <div id="result">
       <h2>Ton profil : <span id="profileName"></span></h2>
       <p id="profileDescription"></p>
+      <div class="bar-container" id="scoreBars"></div>
+	  <img id="profileImage" src="" alt="Image de profil" style="margin-top: 2rem; max-width: 100%; border-radius: 12px; box-shadow: 0 0 20px rgba(0,0,0,0.4);">
     </div>
   </div>
 
@@ -180,6 +211,18 @@
     function startQuiz() {
       document.querySelector('.start-button').style.display = 'none';
       document.getElementById('quiz').style.display = 'block';
+    }
+
+    function checkCompletion() {
+      const form = document.getElementById('quiz');
+      const questions = form.querySelectorAll('.question');
+      let answered = 0;
+      questions.forEach(q => {
+        const checked = q.querySelector('input[type=radio]:checked');
+        if (checked) answered++;
+      });
+      document.getElementById('submitBtn').disabled = answered < questions.length;
+      document.getElementById('progress').innerText = `Questions répondues : ${answered} / ${questions.length}`;
     }
 
     function calculateResult() {
@@ -203,9 +246,22 @@
 
       document.getElementById('profileName').innerText = result[0];
       document.getElementById('profileDescription').innerText = descriptions[result[0]];
+	  document.getElementById('profileImage').src = `profil_${result[0].toLowerCase()}.png`;
+
+      const scoreBars = document.getElementById('scoreBars');
+      scoreBars.innerHTML = '';
+      for (let type in scores) {
+        const percent = (scores[type] / 8) * 100;
+        const bar = document.createElement('div');
+        bar.className = 'bar';
+        bar.style.width = percent + '%';
+		bar.innerHTML = `<strong>${type}</strong> <span style="float:right;">${scores[type]}</span>`;
+        scoreBars.appendChild(bar);
+      }
+
       document.getElementById('quiz').style.display = 'none';
       document.getElementById('result').style.display = 'block';
     }
   </script>
 </body>
-</html>
+</html> 
