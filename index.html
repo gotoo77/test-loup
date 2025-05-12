@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quel loup sommeille en toi ?</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background: url('https://images.unsplash.com/photo-1580587771525-78b9dba3b914') no-repeat center center fixed;
+      background-size: cover;
+      color: #f0f0f0;
+    }
+    .overlay {
+      background: rgba(0, 0, 0, 0.6);
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 4px #000;
+    }
+    p.intro {
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+    }
+    .start-button, .submit-button {
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      background: #4b2c20;
+      border: none;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .start-button:hover, .submit-button:hover {
+      background: #6e3f2a;
+    }
+    .question {
+      margin: 2rem 0;
+      text-align: left;
+    }
+    .question h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .answers label {
+      display: block;
+      margin: 0.5rem 0;
+      cursor: pointer;
+    }
+    #quiz, #result {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay"></div>
+  <div class="container">
+    <h1>Quel loup sommeille en toi ?</h1>
+    <p class="intro">
+      Es-tu un Alpha charismatique, un Sigma mystérieux ou un Oméga libre d’esprit ?<br>
+      Plonge au cœur de ta meute intérieure et découvre ton totem tribal.
+    </p>
+    <button class="start-button" onclick="startQuiz()">Commencer le test</button>
+
+    <form id="quiz">
+      <!-- Questions 1 à 7 + Bonus -->
+      <div class="question">
+        <h3>1. Lors d’une prise de décision en groupe, tu es plutôt celui qui…</h3>
+        <div class="answers">
+          <label><input type="radio" name="q1" value="Alpha"> Prend les rênes et tranche</label>
+          <label><input type="radio" name="q1" value="Bêta"> Suggère calmement des idées</label>
+          <label><input type="radio" name="q1" value="Sigma"> Observe, puis intervient</label>
+          <label><input type="radio" name="q1" value="Oméga"> S’en fout un peu</label>
+          <label><input type="radio" name="q1" value="Gamma"> Analyse et manipule subtilement</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <h3>2. Dans un conflit, tu…</h3>
+        <div class="answers">
+          <label><input type="radio" name="q2" value="Alpha"> Confrontes directement</label>
+          <label><input type="radio" name="q2" value="Bêta"> Cherches le compromis</label>
+          <label><input type="radio" name="q2" value="Sigma"> Dis peu mais frappes fort</label>
+          <label><input type="radio" name="q2" value="Oméga"> Ris en coin et laisses faire</label>
+          <label><input type="radio" name="q2" value="Gamma"> Agis en coulisse</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <h3>3. Ton rapport au pouvoir, c’est…</h3>
+        <div class="answers">
+          <label><input type="radio" name="q3" value="Alpha"> Une évidence : tu le prends</label>
+          <label><input type="radio" name="q3" value="Bêta"> Influencer sans dominer</label>
+          <label><input type="radio" name="q3" value="Sigma"> Tu t’en fous mais refuses l’autorité</label>
+          <label><input type="radio" name="q3" value="Oméga"> Tu évites les jeux de pouvoir</label>
+          <label><input type="radio" name="q3" value="Gamma"> Tu l'étudies et l’utilises</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <h3>4. Dans un groupe, tu es perçu comme…</h3>
+        <div class="answers">
+          <label><input type="radio" name="q4" value="Alpha"> Le meneur ou le protecteur</label>
+          <label><input type="radio" name="q4" value="Bêta"> Le diplomate ou le bras droit</label>
+          <label><input type="radio" name="q4" value="Sigma"> Celui à part qu’on écoute</label>
+          <label><input type="radio" name="q4" value="Oméga"> L’outsider marrant ou étrange</label>
+          <label><input type="radio" name="q4" value="Gamma"> L’observateur discret</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <h3>5. Si tu étais un animal dans une meute, tu serais…</h3>
+        <div class="answers">
+          <label><input type="radio" name="q5" value="Alpha"> Le chef de meute</label>
+          <label><input type="radio" name="q5" value="Bêta"> Le lien entre tous</label>
+          <label><input type="radio" name="q5" value="Sigma"> Le loup solitaire</label>
+          <label><input type="radio" name="q5" value="Oméga"> Celui qu’on oublie</label>
+          <label><input type="radio" name="q5" value="Gamma"> Le tacticien caché</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <h3>6. En soirée, tu es plutôt…</h3>
+        <div class="answers">
+          <label><input type="radio" name="q6" value="Alpha"> Celui qui anime et gère</label>
+          <label><input type="radio" name="q6" value="Bêta"> Celui qui s’assure du bien-être</label>
+          <label><input type="radio" name="q6" value="Sigma"> Celui qui disparaît puis revient</label>
+          <label><input type="radio" name="q6" value="Oméga"> Celui qui observe et lance une dinguerie</label>
+          <label><input type="radio" name="q6" value="Gamma"> Celui qui analyse en silence</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <h3>7. Ton plus grand atout, c’est…</h3>
+        <div class="answers">
+          <label><input type="radio" name="q7" value="Alpha"> Ta force de caractère</label>
+          <label><input type="radio" name="q7" value="Bêta"> Ta loyauté et ton empathie</label>
+          <label><input type="radio" name="q7" value="Sigma"> Ton autonomie et ton aura</label>
+          <label><input type="radio" name="q7" value="Oméga"> Ton originalité et ton franc-parler</label>
+          <label><input type="radio" name="q7" value="Gamma"> Ton intelligence sociale</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <h3>Bonus : En totem de soirée, tu serais plutôt…</h3>
+        <div class="answers">
+          <label><input type="radio" name="q8" value="Alpha"> Le DJ qui gère l’ambiance</label>
+          <label><input type="radio" name="q8" value="Bêta"> Le confident dans la cuisine</label>
+          <label><input type="radio" name="q8" value="Sigma"> Celui qui revient avec un kebab</label>
+          <label><input type="radio" name="q8" value="Oméga"> Celui qui lance un karaoké</label>
+          <label><input type="radio" name="q8" value="Gamma"> Celui qui ressort les dossiers</label>
+        </div>
+      </div>
+
+      <button type="button" class="submit-button" onclick="calculateResult()">Voir mon profil</button>
+    </form>
+
+    <div id="result">
+      <h2>Ton profil : <span id="profileName"></span></h2>
+      <p id="profileDescription"></p>
+    </div>
+  </div>
+
+  <script>
+    function startQuiz() {
+      document.querySelector('.start-button').style.display = 'none';
+      document.getElementById('quiz').style.display = 'block';
+    }
+
+    function calculateResult() {
+      const form = document.getElementById('quiz');
+      const formData = new FormData(form);
+      const scores = { Alpha: 0, Bêta: 0, Sigma: 0, Oméga: 0, Gamma: 0 };
+
+      for (let [_, value] of formData.entries()) {
+        scores[value]++;
+      }
+
+      const result = Object.entries(scores).reduce((a, b) => b[1] > a[1] ? b : a);
+
+      const descriptions = {
+        Alpha: "Leader naturel, charismatique, protecteur et parfois autoritaire.",
+        Bêta: "Loyal, empathique, soutien de l’ombre, pilier du groupe.",
+        Sigma: "Indépendant, mystérieux, en dehors des règles sociales classiques.",
+        Oméga: "Marginal, libre penseur, souvent créatif et décalé.",
+        Gamma: "Observateur, stratège, influence sans dominer."
+      };
+
+      document.getElementById('profileName').innerText = result[0];
+      document.getElementById('profileDescription').innerText = descriptions[result[0]];
+      document.getElementById('quiz').style.display = 'none';
+      document.getElementById('result').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
